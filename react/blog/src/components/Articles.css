@@ -1,0 +1,19 @@
+.Articles {
+  box-sizing: border-box;
+  width: 450px;
+  padding: 10px;
+  box-shadow: 0 5px 10px 1px lightgray;
+  border: 1px solid #333;
+}
+
+.Articles__title {
+  color: goldenrod;
+}
+
+.light {
+  background-color: white;
+}
+
+.dark {
+  background-color: #333;
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Articles } from '../components/Articles'
+import './Posts.css'
 
 export function Posts() {
   const [posts, setPosts] = useState([]);
@@ -22,13 +23,8 @@ export function Posts() {
   if(loading) return <p>Loading...</p>
   if(error) return <p>error</p>
   return (
-    <div className="App">
-      {posts.map(({ id, title }) => (
-        <article key={id}>
-          <h1>{title}</h1>
-          <Link to={`/posts/${id}`}>ver más</Link>
-        </article>
-      ))}
+    <div className="Posts">
+      <Articles posts={posts} />
     </div>
   );
 }
