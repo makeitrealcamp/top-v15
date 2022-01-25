@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
     const grocery = await Grocery.create(body);
     res.status(201).json({ message: 'Producto creado', grocery });
   } catch(e) {
-    res.status(400).json({ message: e.messsage });
+    res.status(400).json({ message: e.message });
   }
 };
 
