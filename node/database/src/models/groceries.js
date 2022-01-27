@@ -1,6 +1,5 @@
 const { Schema, model, models } = require('mongoose');
 
-const passwordRegexp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
 const groceriesSchema = new Schema({
   name: {
     type: String,
@@ -25,27 +24,10 @@ const groceriesSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  email: {
-    type: String,
-    // no
-    // unique: true,
-    validate: [
-      {
-        async validator(email) {
-          try {
-            const grocery = await models.Grocery.findOne({ email });
-            return !grocery;
-          } catch(e) {
-            return false;
-          }
-        },
-        message: 'El correo ya está en uso.',
-      }
-    ],
-  },
-  password: {
-    type: String,
-    match: passwordRegexp
+  salesman: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
   }
   // createdAt: Date,
   // updatedAt: Date,

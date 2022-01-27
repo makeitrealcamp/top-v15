@@ -1,4 +1,5 @@
 const Grocery = require('../models/groceries');
+const User = require('../models/users');
 
 // async/await -> syntatic sugar
 // exports.create = (req, res) => {
@@ -15,9 +16,21 @@ const Grocery = require('../models/groceries');
 
 exports.create = async (req, res) => {
   try {
-    const { body } = req;
+    // const { userId } = req.params;
+    // const grocery = await Grocery.create({ ...body, salesman: userId });
 
-    const grocery = await Grocery.create(body);
+    const { body: { userId, ...rest } } = req;
+
+    const user = await User.findById(userId);
+
+    if(!user) {
+      throw new Error('Usuario inválido.')
+    }
+
+    const grocery = await Grocery.create({ ...rest, salesman: userId });
+    user.products.push(grocery._id);
+    await user.save({ validateBeforeSave: false });
+
     res.status(201).json({ message: 'Producto creado', grocery });
   } catch(e) {
     res.status(400).json({ message: e.message });
@@ -26,7 +39,8 @@ exports.create = async (req, res) => {
 
 exports.list = async (req, res) => {
   try {
-    const groceries = await Grocery.find()
+    const { userId } = req.query;
+    const groceries = await Grocery.find({ salesman: userId }).select('name');
     res.status(200).json({ message: `${groceries.length} productos encontrados`, groceries })
   } catch(e) {
     res.status(500).json({ message: 'Algo salió mal' })
@@ -36,7 +50,7 @@ exports.list = async (req, res) => {
 exports.show = async (req, res) => {
   const { groceryId } = req.params;
   try {
-    const grocery = await Grocery.findById(groceryId);
+    const grocery = await Grocery.findById(groceryId).populate({ path: 'salesman', fields: 'email', populate: 'products' });
 
     if(!grocery) {
       throw new Error('blah blah')
