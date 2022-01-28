@@ -21,6 +21,7 @@ exports.create = async (req, res) => {
 
     const { body: { userId, ...rest } } = req;
 
+    // const user = await User.findByIdAndUpdate(userId, { ...rest, $push: { products: body.products } })
     const user = await User.findById(userId);
 
     if(!user) {
@@ -50,7 +51,7 @@ exports.list = async (req, res) => {
 exports.show = async (req, res) => {
   const { groceryId } = req.params;
   try {
-    const grocery = await Grocery.findById(groceryId).populate({ path: 'salesman', fields: 'email', populate: 'products' });
+    const grocery = await Grocery.findById(groceryId).populate({ path: 'salesman', select: 'email', populate: 'products' });
 
     if(!grocery) {
       throw new Error('blah blah')
