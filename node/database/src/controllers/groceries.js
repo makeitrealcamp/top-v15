@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
     // const { userId } = req.params;
     // const grocery = await Grocery.create({ ...body, salesman: userId });
 
-    const { body: { userId, ...rest } } = req;
+    const { body, userId } = req;
 
     // const user = await User.findByIdAndUpdate(userId, { ...rest, $push: { products: body.products } })
     const user = await User.findById(userId);
@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
       throw new Error('Usuario inválido.')
     }
 
-    const grocery = await Grocery.create({ ...rest, salesman: userId });
+    const grocery = await Grocery.create({ ...body, salesman: userId });
     user.products.push(grocery._id);
     await user.save({ validateBeforeSave: false });
 
@@ -65,9 +65,15 @@ exports.show = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  const { body, params: { groceryId } } = req;
+  const { body, params: { groceryId }, userId } = req;
   try {
-    const grocery = await Grocery.findByIdAndUpdate(groceryId, body, { new: true });
+    const grocery = await Grocery.findOneAndUpdate({ _id: groceryId, salesman: userId }, body, { new: true });
+
+    if(!grocery) {
+      res.status(403).json({ message: 'El producto no pudo ser actualizado' });
+      return
+    }
+
     res.status(200).json({ message: 'Producto actualizado', grocery });
   } catch(e) {
     res.status(400).json({ message: 'El producto no pudo ser actualizado' });
@@ -75,10 +81,14 @@ exports.update = async (req, res) => {
 };
 
 exports.destroy = async (req, res) => {
-  const { groceryId } = req.params;
-
   try {
-    const grocery = await Grocery.findByIdAndDelete(groceryId);
+    const { params: { groceryId }, userId } = req;
+    const grocery = await Grocery.findOneAndDelete({ _id: groceryId, salesman: userId });
+
+    if(!grocery) {
+      res.status(403).json({ message: 'El producto no pudo ser eliminado' });
+      return
+    }
 
     res.status(200).json({ message: 'El producto fue borrado', grocery });
   } catch(e) {

@@ -35,7 +35,6 @@ exports.signin = async (req, res) => {
       throw new Error('Email o contraseña inválida');
     }
 
-    console.log(process.env.HOME)
     const token = jwt.sign(
       { id: user._id },
       process.env.SECRET,
