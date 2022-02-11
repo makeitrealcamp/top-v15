@@ -1,0 +1,10 @@
+{
+  "name": "redux-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Simon Hoyos <shmesa23@gmail.com> (https://www.linkedin.com/in/simonhoyos)",
+  "license": "MIT",
+  "dependencies": {
+    "redux": "^4.1.2"
+  }
+}
