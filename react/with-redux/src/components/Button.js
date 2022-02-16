@@ -1,6 +1,6 @@
 // import { connect } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { INCREMENT, DECREMENT } from '../store';
+import { /* INCREMENT, DECREMENT */ increment, decrement } from '../store/counterReducer';
 
 export function Button() {
   const dispatch = useDispatch();
@@ -9,13 +9,15 @@ export function Button() {
     <div>
       <button
         type="button"
-        onClick={() => dispatch({ type: INCREMENT })}
+        /* onClick={() => dispatch({ type: INCREMENT })} */
+        onClick={() => dispatch(increment())}
       >
         Increment
       </button>
       <button
         type="button"
-        onClick={() => dispatch({ type: DECREMENT })}
+        /* onClick={() => dispatch({ type: DECREMENT })} */
+        onClick={() => dispatch(decrement())}
       >
         Decrement
       </button>
