@@ -1,7 +1,8 @@
 import { Button } from './components/Button';
 import { Counter } from './components/Counter';
-import { Form } from './components/Form'
-import { Text } from './components/Text'
+import { Form } from './components/Form';
+import { Text } from './components/Text';
+import { Posts } from './components/Posts';
 import './App.css';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Button />
       <Form />
       <Text />
+      <Posts />
     </div>
   );
 }

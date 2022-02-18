@@ -1,10 +1,33 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import { counterReducer } from './counterReducer';
 import { formReducer } from './formReducer';
+import { postsReducer } from './postsReducer';
 
-const rootReducer = combineReducers({ counterReducer, formReducer });
+// currying
+// function logger(store) {
+//   return function (next) {
+//     return function (action) {
+//       const currState = store.getState();
+//       const result = next(action)
+//       const nextState = store.getState();
 
-export const store = createStore(rootReducer);
+//       console.log({
+//         'Current state': currState,
+//         action,
+//         'Next state': nextState
+//       });
+
+//       return result;
+//     }
+//   }
+// }
+
+const rootReducer = combineReducers({ counterReducer, formReducer, postsReducer });
+const middlewares = applyMiddleware(logger, thunk);
+
+export const store = createStore(rootReducer, middlewares);
 
 // const initialState = {
 //   count: 0,
