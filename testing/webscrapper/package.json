@@ -1,0 +1,13 @@
+{
+  "name": "webscrapper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Simon Hoyos <shmesa23@gmail.com> (https://www.linkedin.com/in/simonhoyos)",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^13.5.1"
+  }
+}
