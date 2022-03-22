@@ -11,7 +11,7 @@ function Tasks({ tasks, getTasks }) {
 
   return (
     <div className="tasks">
-      <h1>Tasks</h1>
+      <h1 data-cypress="tasks">Tasks</h1>
       {(!tasks || tasks.length <= 0) && (
         <p>No tasks created yet. Create one <Link to="/create">here</Link></p>
       )}

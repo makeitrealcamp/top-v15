@@ -21,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:e2e": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +40,8 @@
     ]
   },
   "devDependencies": {
+    "cypress": "^9.5.2",
+    "cypress-mongodb": "^2.1.2",
     "moxios": "^0.4.0",
     "puppeteer": "^8.0.0",
     "redux-mock-store": "^1.5.4"

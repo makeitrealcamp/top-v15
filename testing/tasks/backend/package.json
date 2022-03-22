@@ -7,6 +7,7 @@
     "start": "cross-env NODE_ENV=production node src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon src/server.js",
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles",
+    "test:e2e": "cross-env NODE_ENV=test node src/server.js",
     "test:watch": "yarn test --watchAll",
     "test:coverage": "yarn test:watch --coverage"
   },
