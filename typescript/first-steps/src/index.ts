@@ -55,8 +55,15 @@ let person: IPerson = {
 * @param b must be a negative integer
 * @returns number
 */
-function sum(a: number, b: number): number {
+// function sum(a: number, b: number): number {
+//   return a + b;
+// }
+
+sum(1, 2)
+
+// Generics
+function sum<T>(a: T, b: T): T {
   return a + b;
 }
 
-sum(1, 2)
+sum<number>(1, 2);
