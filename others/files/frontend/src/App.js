@@ -26,7 +26,9 @@ function App() {
     const formData = new FormData();
 
     formData.append('email', 'simon@test');
-    formData.append('file', file, file.filename)
+    if(file) {
+      formData.append('file', file, file.filename)
+    }
     // formData.append('profile', file, file.filename)
 
     // formData.username = 'simon' X
