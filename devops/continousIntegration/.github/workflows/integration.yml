@@ -1,0 +1,61 @@
+name: Top Action Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.1
+      - name: install-dependecies
+        run: yarn install
+      - name: run-tests
+        run: yarn test
+
+# keys: 'string'
+
+# keysObj:
+#   nestedKey:
+#     secondKey: 1
+
+# keysArr:
+#   - 1
+#   - 2
+#   - 3
+
+# keysArrObj:
+#   - key1:
+#       nested: 1
+#   - key1: 1
+#     key2: 2
+
+# {
+#   // comment
+#   "keys": "string",
+#   "keysObj": {
+#     "nestedKey": {
+#       "secondKey": 1
+#     }
+#   },
+#   "keysArr": [1,2,3],
+#   "keysArrObj": [
+#     {
+#       "key1": {
+#         "nested": 1
+#       }
+#     },
+#     {
+#       "key1": 1,
+#       "key2": 2
+#     }
+#   ]
+# }
