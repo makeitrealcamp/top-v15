@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  mongo:
+    # docker run -p 27017:27017 -v ~/Documents/programming/data/db:/data/db --network docker-compose-network --name
+    # some-mongo mongo
+    image: mongo
+    restart: always
+    container_name: some-mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ~/Documents/programming/data/db:/data/db
+  backend:
+    # docker run -p 8000:8000 -v ~/Desktop/docker-example/backend:/usr/app -v
+    # ~/Desktop/docker-example/backend/node_modules --network docker-compose-network --name some-backend --hostname
+    # some-backend -e MONGO_URI="mongodb://some-mongo:27017/test simonhoyos/backend"
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.development
+    restart: always
+    container_name: some-backend
+    hostname: some-backend
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/usr/app
+      - /Users/simonhoyos/Desktop/docker-example/backend/node_modules
+    environment:
+      - MONGO_URI=mongodb://some-mongo:27017/test
+    # env_file:
+    #   - ./backend/.env
+  frontend:
+    # docker run -p 3000:3000 -v ~/Desktop/docker-example/frontend/:/usr/app -v
+    # ~/Desktop/docker-example/frontend/node_modules --network docker-compose-network --name some-frontend
+    # simonhoyos/frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.development
+    restart: always
+    container_name: some-frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/app
+      - /Users/simonhoyos/Desktop/docker-example/frontend/node_modules
+    stdin_open: true
